@@ -2,7 +2,7 @@
 import React from "react";
 
 import { Input } from "./Input";
-import { Label } from "./label";
+import { Label } from "./Label";
 import { cn } from "../../utils";
 import {
   IconBrandGithub,
