@@ -8,6 +8,7 @@ import MainPage from './pages/Mainpage'
 import Features from './pages/Features'
 import LandingPage from './pages/LandingPage'
 import { UploadPage } from './pages/UploadPage'
+import { DashBoardPage } from './pages/DasboardPage'
 
 
 
@@ -25,6 +26,7 @@ function App() {
       <Route path='/features' element={<Features/>} />
       <Route path='/landing' element={<LandingPage/>} />
       <Route path='/uploadfile' element={<UploadPage/>} />
+      <Route path='/getyourdashboard' element={<DashBoardPage/>} />
     </Routes>
   )
 }

@@ -9,6 +9,7 @@ import {
 } from "framer-motion";
 
 import React, { useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 
 export const Navbar = ({
@@ -81,6 +82,7 @@ export const NavItems = ({
   className,
   onItemClick
 }) => {
+  const navigate = useNavigate();
   const [hovered, setHovered] = useState(null);
 
   return (
@@ -93,10 +95,10 @@ export const NavItems = ({
       {items.map((item, idx) => (
         <a
           onMouseEnter={() => setHovered(idx)}
-          onClick={onItemClick}
+          onClick={()=>navigate(`${item.link}`)}
           className="relative px-4 py-2 text-neutral-600 dark:text-neutral-300"
           key={`link-${idx}`}
-          href={item.link}>
+          >
           {hovered === idx && (
             <motion.div
               layoutId="hovered"
@@ -224,9 +226,12 @@ export const NavbarButton = ({
       "bg-gradient-to-b from-blue-500 to-blue-700 text-white shadow-[0px_2px_0px_0px_rgba(255,255,255,0.3)_inset]",
   };
 
+  const navigate = useNavigate();
+
   return (
     <Tag
-      href={href || undefined}
+      
+      onClick={()=>navigate('/landing')}
       className={cn(baseStyles, variantStyles[variant], className)}
       {...props}>
       {children}

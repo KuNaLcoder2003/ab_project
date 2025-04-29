@@ -1,4 +1,5 @@
 
+import { useNavigate } from "react-router-dom";
 import {
   Navbar,
   NavBody,
@@ -16,19 +17,20 @@ export function NavbarDemo() {
   const navItems = [
     {
       name: "Features",
-      link: "#features",
+      link: "/features",
     },
     {
-      name: "Pricing",
-      link: "#pricing",
+      name: "Dashboards",
+      link: "/getyourdashboard",
     },
     {
       name: "Contact",
-      link: "#contact",
+      link: "/contact",
     },
   ];
 
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const navigate = useNavigate();
 
   return (
     <div className="relative w-full mb-[4rem]">
@@ -57,7 +59,7 @@ export function NavbarDemo() {
               <a
                 key={`mobile-link-${idx}`}
                 href={item.link}
-                onClick={() => setIsMobileMenuOpen(false)}
+                onClick={() => navigate(`${item.link}`)}
                 className="relative text-neutral-600 dark:text-neutral-300">
                 <span className="block">{item.name}</span>
               </a>
