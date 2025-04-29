@@ -1,44 +1,4 @@
-// // import { FaGithub, FaLinkedin, FaTwitter } from "react-icons/fa";
-// import { GithubIcon , TwitchIcon , FacebookIcon } from "lucide-react";
 
-// const Footer = () => {
-//   return (
-//     <footer className="bg-gray-50 border-t border-gray-200">
-//       <div className="max-w-7xl mx-auto px-6 py-10 flex flex-col md:flex-row justify-between items-center gap-6 text-sm text-gray-600">
-        
-//         {/* Logo & Branding */}
-//         <div className="text-center md:text-left">
-//           <h2 className="text-xl font-semibold text-gray-800">YourCompany</h2>
-//           <p className="text-xs text-gray-500">© {new Date().getFullYear()} All rights reserved.</p>
-//         </div>
-
-//         {/* Navigation Links */}
-//         <div className="flex flex-wrap justify-center md:justify-start gap-4">
-//           <a href="/about" className="hover:text-gray-900 transition">About</a>
-//           <a href="/services" className="hover:text-gray-900 transition">Services</a>
-//           <a href="/contact" className="hover:text-gray-900 transition">Contact</a>
-//           <a href="/privacy" className="hover:text-gray-900 transition">Privacy Policy</a>
-//         </div>
-
-//         {/* Social Media Icons */}
-//         <div className="flex gap-4">
-//           <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="hover:text-gray-900 transition">
-//             <GithubIcon size={18} />
-//           </a>
-//           <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="hover:text-gray-900 transition">
-//             <FacebookIcon size={18} />
-//           </a>
-//           <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="hover:text-gray-900 transition">
-//             <TwitchIcon size={18} />
-//           </a>
-//         </div>
-        
-//       </div>
-//     </footer>
-//   );
-// };
-
-// export default Footer;
 
 import React from 'react';
 import { Mail, Phone, MapPin, Instagram, Twitter, Facebook, Linkedin, Github } from 'lucide-react';

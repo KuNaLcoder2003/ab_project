@@ -1,8 +1,6 @@
 
 
-import { motion } from "framer-motion";
-import obj from "../../data";
-import { useNavigate } from "react-router-dom";
+
 import { NavbarDemo } from "../components/NavbarDemo"
 
 import { Cover } from "../components/Cover";
