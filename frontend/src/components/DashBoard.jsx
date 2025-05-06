@@ -48,7 +48,10 @@ export default function DashBoard({products , historicalSales , futureSales , in
         <h1 className="text-2xl font-bold">{`${localStorage.getItem('user')}'s Dashboard`}</h1>
         <div className='flex items-center gap-4'>
           <button className='px-4 py-1 text-center shadow-md font-semibold bg-white rounded-md cursor-pointer' onClick={()=>{
-            localStorage.clear();
+            localStorage.removeItem('products');
+            localStorage.removeItem('futuresales')
+            localStorage.removeItem('histroy')
+            localStorage.removeItem('inventory')
             setUploaded(false)
           }}>Reupload</button>
           <button className='px-4 py-1 text-center shadow-md font-semibold bg-white rounded-md cursor-pointer' onClick={()=>{
