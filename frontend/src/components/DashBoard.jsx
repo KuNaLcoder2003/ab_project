@@ -1,38 +1,7 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { LineChart, BarChart, PieChart, Pie, Cell, Bar, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { AlertTriangle, TrendingUp, DollarSign, Package, ArrowUpRight, RefreshCw, Bell } from 'lucide-react';
-
-// Sample data - in a real application, this would come from your database
-const products = [
-  { id: 1, name: "Product A", category: "Electronics" },
-  { id: 2, name: "Product B", category: "Furniture" },
-  { id: 3, name: "Product C", category: "Clothing" },
-  { id: 4, name: "Product D", category: "Electronics" },
-  { id: 5, name: "Product E", category: "Accessories" }
-];
-
-const historicalSales = [
-  { month: 'Jan', "Product A": 65, "Product B": 28, "Product C": 42, "Product D": 33, "Product E": 19 },
-  { month: 'Feb', "Product A": 59, "Product B": 32, "Product C": 37, "Product D": 29, "Product E": 22 },
-  { month: 'Mar', "Product A": 80, "Product B": 27, "Product C": 41, "Product D": 36, "Product E": 25 },
-  { month: 'Apr', "Product A": 81, "Product B": 30, "Product C": 50, "Product D": 40, "Product E": 27 },
-  { month: 'May', "Product A": 56, "Product B": 36, "Product C": 45, "Product D": 31, "Product E": 21 },
-  { month: 'Jun', "Product A": 55, "Product B": 40, "Product C": 48, "Product D": 38, "Product E": 24 }
-];
-
-const futureSales = [
-  { month: 'Jul', "Product A": 67, "Product B": 35, "Product C": 51, "Product D": 42, "Product E": 26 },
-  { month: 'Aug', "Product A": 75, "Product B": 38, "Product C": 53, "Product D": 45, "Product E": 28 },
-  { month: 'Sep', "Product A": 88, "Product B": 42, "Product C": 57, "Product D": 48, "Product E": 30 }
-];
-
-const inventoryStatus = [
-  { id: 1, name: "Product A", stock: 120, reorderPoint: 50, reorderQuantity: 100, predicted: 230, required: 250 },
-  { id: 2, name: "Product B", stock: 35, reorderPoint: 40, reorderQuantity: 80, predicted: 115, required: 120 },
-  { id: 3, name: "Product C", stock: 78, reorderPoint: 60, reorderQuantity: 120, predicted: 161, required: 170 },
-  { id: 4, name: "Product D", stock: 42, reorderPoint: 45, reorderQuantity: 90, predicted: 135, required: 140 },
-  { id: 5, name: "Product E", stock: 26, reorderPoint: 30, reorderQuantity: 60, predicted: 84, required: 90 }
-];
+import { useNavigate } from 'react-router-dom';
 
 const reorderHistory = [
   { month: 'Jan', count: 3 },
@@ -44,15 +13,20 @@ const reorderHistory = [
 ];
 
 const categoryBreakdown = [
-  { name: 'Electronics', value: 2 },
-  { name: 'Furniture', value: 1 },
-  { name: 'Clothing', value: 1 },
-  { name: 'Accessories', value: 1 }
+  { name: 'BOWJF446VL51-663CK', value: 56.7 , id : 'Product-1' },
+  { name: 'BOWJF446VL51-663DK', value: 72 , id : 'Product-2' },
+  { name: 'IOWJF450XL51-666CK', value: 50  , id : 'Product-3'},
+  { name: 'IOWJF451XL51-663B', value: 88 , id : 'Product-4' } ,
+  { name: 'IOWJF451XL51-663CJ', value: 28 , id : 'Product-5' } ,
+  { name: 'ROWJF450XL51-666C', value: 74  , id : 'Product-6'} ,
+  { name: 'ROWJF450XL51-666D', value: 54 , id : 'Product-7' } ,
+  { name: 'ROWJF451XL51-663C', value: 78, id : 'Product-8' } , 
+
 ];
 
-const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#8884d8'];
+const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#8884d8' , '#00C49G' , '#05549F' , '#00809F' ];
 
-export default function DashBoard() {
+export default function DashBoard({products , historicalSales , futureSales , inventoryStatus , setUploaded }) {
   const [selectedProduct, setSelectedProduct] = useState("all");
   
   // Calculate totals for KPIs
@@ -66,11 +40,21 @@ export default function DashBoard() {
   
   // Combined sales data for the chart
   const combinedSalesData = [...historicalSales, ...futureSales];
+  const navigate = useNavigate()
 
   return (
     <div className="flex flex-col h-screen bg-gray-50 text-gray-800">
-      <header className="bg-slate-200 text-black p-4 shadow-md">
+      <header className="bg-slate-200 text-black p-4 shadow-md flex items-center justify-between">
         <h1 className="text-2xl font-bold">Akshita's Dashboard</h1>
+        <div className='flex items-center gap-4'>
+          <button className='px-4 py-1 text-center shadow-md font-semibold bg-white rounded-md cursor-pointer' onClick={()=>{
+            localStorage.clear();
+            setUploaded(false)
+          }}>Reupload</button>
+          <button className='px-4 py-1 text-center shadow-md font-semibold bg-white rounded-md cursor-pointer' onClick={()=>{
+            navigate('/landing')
+          }}>Home</button>
+        </div>
       </header>
 
       <main className="flex-1 p-12 overflow-auto">
@@ -221,7 +205,7 @@ export default function DashBoard() {
 
           {/* Product Category Mix */}
           <div className="bg-white p-4 rounded-lg shadow-md">
-            <h2 className="text-lg font-semibold mb-4">Product Category Distribution</h2>
+            <h2 className="text-lg font-semibold mb-4">Sell Throgh rate</h2>
             <div className="h-64">
               <ResponsiveContainer width="100%" height="100%">
                 <PieChart>
@@ -233,7 +217,7 @@ export default function DashBoard() {
                     outerRadius={80}
                     fill="#8884d8"
                     dataKey="value"
-                    label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
+                    label={({ id, percent }) => `${id} ${(percent * 100).toFixed(0)}%`}
                   >
                     {categoryBreakdown.map((entry, index) => (
                       <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />

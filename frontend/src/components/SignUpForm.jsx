@@ -1,5 +1,5 @@
 
-import React from "react";
+import React, { useState } from "react";
 
 import { Input } from "./Input";
 import { Label } from "./Label";
@@ -9,46 +9,79 @@ import {
   IconBrandGoogle,
 
 } from "@tabler/icons-react";
+import { useNavigate } from "react-router-dom";
 
-export function SignupForm() {
+export function SignupForm({setIsLoggedIn}) {
+
+  const [username, setUsername] = useState("")
+  const [password, setPassword] = useState("")
+  const [first_name, setFirstName] = useState("")
+  const [last_name, setLastName] = useState("")
+
+  const navigate = useNavigate();
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Form submitted");
+    fetch('http://localhost:3000/api/v1/user/signup' , {
+      method : 'POST',
+      headers : {
+        'Content-Type' : 'application/json'
+      },
+      body : JSON.stringify({
+        user_details : {
+          first_name : first_name,
+          last_name : last_name,
+          username : username,
+          password : password
+        }
+      })
+    }).then(async(response)=>{
+      const data = await response.json()
+      console.log(data)
+      if(data.valid){
+        localStorage.setItem("user" , `${data.user.first_name} ${data.user.last_name}`)
+        localStorage.setItem('token' , data.token)
+        setIsLoggedIn(true)
+        navigate('/landing')
+      }
+    })
   };
   return (
     <div
       className="shadow-input mx-auto w-full max-w-md rounded-none bg-white p-4 md:rounded-2xl md:p-8 dark:bg-black">
       <h2 className="text-xl font-bold text-neutral-800 dark:text-neutral-200">
-        Welcome to Aceternity
+        Welcome to our platform
       </h2>
-      <p className="mt-2 max-w-sm text-sm text-neutral-600 dark:text-neutral-300">
-        Login to aceternity if you can because we don&apos;t have a login flow
-        yet
-      </p>
+     
       <form className="my-8" onSubmit={handleSubmit}>
         <div
           className="mb-4 flex flex-col space-y-2 md:flex-row md:space-y-0 md:space-x-2">
           <LabelInputContainer>
             <Label htmlFor="firstname">First name</Label>
-            <Input id="firstname" placeholder="Tyler" type="text" />
+            <Input val={first_name} onChange={function(value){
+              setFirstName(value)
+            }} id="firstname" placeholder="Tyler" type="text" />
           </LabelInputContainer>
           <LabelInputContainer>
             <Label htmlFor="lastname">Last name</Label>
-            <Input id="lastname" placeholder="Durden" type="text" />
+            <Input  val={last_name} onChange={function(value){
+              setLastName(value)
+            }}  id="lastname" placeholder="Durden" type="text" />
           </LabelInputContainer>
         </div>
         <LabelInputContainer className="mb-4">
-          <Label htmlFor="email">Email Address</Label>
-          <Input id="email" placeholder="projectmayhem@fc.com" type="email" />
+          <Label htmlFor="email">Username</Label>
+          <Input  val={username} onChange={function(value){
+              setUsername(value)
+            }}  id="email" placeholder="projectmayhem@fc.com" type="email" />
         </LabelInputContainer>
         <LabelInputContainer className="mb-4">
           <Label htmlFor="password">Password</Label>
-          <Input id="password" placeholder="••••••••" type="password" />
+          <Input  val={password} onChange={function(value){
+              setPassword(value)
+            }}  id="password" placeholder="••••••••" type="password" />
         </LabelInputContainer>
-        <LabelInputContainer className="mb-8">
-          <Label htmlFor="twitterpassword">Your twitter password</Label>
-          <Input id="twitterpassword" placeholder="••••••••" type="twitterpassword" />
-        </LabelInputContainer>
+
 
         <button
           className="group/btn relative block h-10 w-full rounded-md bg-gradient-to-br from-black to-neutral-600 font-medium text-white shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:bg-zinc-800 dark:from-zinc-900 dark:to-zinc-900 dark:shadow-[0px_1px_0px_0px_#27272a_inset,0px_-1px_0px_0px_#27272a_inset]"
@@ -79,7 +112,19 @@ export function SignupForm() {
             </span>
             <BottomGradient />
           </button>
-          
+
+          <button
+            onClick={() => navigate('/signin')}
+            className="group/btn shadow-input relative flex h-10 w-full items-center justify-start space-x-2 rounded-md bg-gray-50 px-4 font-medium text-black dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_#262626]"
+            type="submit">
+
+            <span className="text-sm text-neutral-700 dark:text-neutral-300">
+              Login into existing account
+            </span>
+            <BottomGradient />
+
+          </button>
+
         </div>
       </form>
     </div>

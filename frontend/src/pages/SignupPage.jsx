@@ -1,9 +1,9 @@
 import React from 'react'
 import { SignupForm } from '../components/SignUpForm'
 
-const SignupPage = () => {
+const SignupPage = ({setIsLoggedIn}) => {
   return (
-    <SignupForm/>
+    <SignupForm setIsLoggedIn={setIsLoggedIn} />
   )
 }
 

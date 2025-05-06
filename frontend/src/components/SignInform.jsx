@@ -1,5 +1,5 @@
 
-import React from "react";
+import React, { useState } from "react";
 import { Input } from "./Input";
 import { Label } from "./Label";
 import { cn } from "../../utils";
@@ -8,11 +8,44 @@ import {
   IconBrandGoogle,
 
 } from "@tabler/icons-react";
+import { useNavigate } from "react-router-dom";
 
-export function SignInForm() {
+export function SignInForm({setIsLoggedIn}) {
+
+  const navigate = useNavigate();
+
+  const [username, setUsername] = useState("")
+  const [password, setPassword] = useState("")
+
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Form submitted");
+
+
+
+
+    try {
+      fetch('http://localhost:3000/api/v1/user/signin', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          username: username,
+          password: password
+        })
+      }).then(async (response) => {
+        const data = await response.json();
+        if (data.valid && data.token) {
+          localStorage.setItem('token' , data.token)
+          localStorage.setItem("user", `${data.user.first_name} ${data.user.last_name}`)
+          setIsLoggedIn(true)
+          navigate('/landing')
+        }
+      })
+    } catch (error) {
+
+    }
   };
   return (
     <div
@@ -24,16 +57,21 @@ export function SignInForm() {
         Welcome back , your inventory insights wait for you
       </p>
       <form className="my-8" onSubmit={handleSubmit}>
-        
+
         <LabelInputContainer className="mb-4">
           <Label htmlFor="email">Email Address</Label>
-          <Input id="email" placeholder="projectmayhem@fc.com" type="email" />
+          <Input val={username} onChange={function (value) {
+            setUsername(value)
+            console.log(username)
+          }} id="email" placeholder="projectmayhem@fc.com" type="text" />
         </LabelInputContainer>
         <LabelInputContainer className="mb-4">
           <Label htmlFor="password">Password</Label>
-          <Input id="password" placeholder="••••••••" type="password" />
+          <Input val={password} onChange={function (value) {
+            setPassword(value)
+          }} id="password" placeholder="••••••••" type="password" />
         </LabelInputContainer>
-        
+
 
         <button
           className="group/btn relative block h-10 w-full rounded-md bg-gradient-to-br from-black to-neutral-600 font-medium text-white shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:bg-zinc-800 dark:from-zinc-900 dark:to-zinc-900 dark:shadow-[0px_1px_0px_0px_#27272a_inset,0px_-1px_0px_0px_#27272a_inset]"
@@ -63,8 +101,22 @@ export function SignInForm() {
               Google
             </span>
             <BottomGradient />
+
           </button>
-          
+
+          <button
+            onClick={() => navigate('/signup')}
+            className="group/btn shadow-input relative flex h-10 w-full items-center justify-start space-x-2 rounded-md bg-gray-50 px-4 font-medium text-black dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_#262626]"
+            type="submit">
+
+            <span className="text-sm text-neutral-700 dark:text-neutral-300">
+              Create a new Account
+            </span>
+            <BottomGradient />
+
+          </button>
+
+
         </div>
       </form>
     </div>

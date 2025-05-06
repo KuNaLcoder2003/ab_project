@@ -13,19 +13,15 @@ import {
 } from "./Navbar"
 import { useState } from "react";
 
-export function NavbarDemo() {
+export function NavbarDemo({ isLoggedIn = false, setIsLoggedIn }) {
   const navItems = [
     {
-      name: "Features",
-      link: "/features",
+      name: "Home",
+      link: "/landing",
     },
     {
-      name: "Dashboards",
-      link: "/getyourdashboard",
-    },
-    {
-      name: "Contact",
-      link: "/contact",
+      name: "Insights",
+      link: "/getInsights",
     },
   ];
 
@@ -40,7 +36,14 @@ export function NavbarDemo() {
           <NavbarLogo />
           <NavItems items={navItems} />
           <div className="flex items-center gap-4">
-            <NavbarButton variant="secondary">Login</NavbarButton>
+            {isLoggedIn ? <NavbarButton variant="secondary" onClick={function(){
+              navigate("/");
+              localStorage.clear()
+              setIsLoggedIn(false);
+            }}>Logout</NavbarButton> : <NavbarButton variant="secondary" onClick={function()  {
+              navigate("/signin");
+              
+            }}>Login</NavbarButton>}
             <NavbarButton variant="primary">Book a call</NavbarButton>
           </div>
         </NavBody>
@@ -60,7 +63,7 @@ export function NavbarDemo() {
                 key={`mobile-link-${idx}`}
                 href={item.link}
                 onClick={() => navigate(`${item.link}`)}
-                className="relative text-neutral-600 dark:text-neutral-300">
+                className="relative text-neutral-600 dark:text-neutral-300 cursor-pointer">
                 <span className="block">{item.name}</span>
               </a>
             ))}

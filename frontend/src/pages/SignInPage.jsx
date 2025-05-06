@@ -2,10 +2,10 @@ import React from 'react'
 
 import { SignInForm } from '../components/SignInform'
 
-const SignInPage = () => {
+const SignInPage = ({setIsLoggedIn}) => {
   return (
     <div className='flex justify-center items-center'>
-        <SignInForm/>
+        <SignInForm setIsLoggedIn={setIsLoggedIn} />
     </div>
   )
 }

@@ -96,7 +96,7 @@ export const NavItems = ({
         <a
           onMouseEnter={() => setHovered(idx)}
           onClick={()=>navigate(`${item.link}`)}
-          className="relative px-4 py-2 text-neutral-600 dark:text-neutral-300"
+          className="relative px-4 py-2 text-neutral-600 dark:text-neutral-300 cursor-pointer"
           key={`link-${idx}`}
           >
           {hovered === idx && (
@@ -208,10 +208,11 @@ export const NavbarLogo = () => {
 
 export const NavbarButton = ({
   href,
-  as: Tag = "a",
+  as: Tag = "button",
   children,
   className,
   variant = "primary",
+  onClick,
   ...props
 }) => {
   const baseStyles =
@@ -226,15 +227,13 @@ export const NavbarButton = ({
       "bg-gradient-to-b from-blue-500 to-blue-700 text-white shadow-[0px_2px_0px_0px_rgba(255,255,255,0.3)_inset]",
   };
 
-  const navigate = useNavigate();
 
   return (
-    <Tag
-      
-      onClick={()=>navigate('/landing')}
+    <button
+      onClick={()=>onClick()}
       className={cn(baseStyles, variantStyles[variant], className)}
       {...props}>
       {children}
-    </Tag>
+    </button>
   );
 };
