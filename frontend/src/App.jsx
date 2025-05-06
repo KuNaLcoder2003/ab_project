@@ -26,7 +26,7 @@ function App() {
     else {
       setIsLoggedIn(false);
     }
-  },[])
+  },[isLoggedIn])
   
 
   return (

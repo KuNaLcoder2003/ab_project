@@ -1,6 +1,6 @@
 
-import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from "react";
+
 import DashBoard from "../components/DashBoard";
 // import { X } from "lucide-react";
 
