@@ -45,7 +45,7 @@ export default function DashBoard({products , historicalSales , futureSales , in
   return (
     <div className="flex flex-col h-screen bg-gray-50 text-gray-800">
       <header className="bg-slate-200 text-black p-4 shadow-md flex items-center justify-between">
-        <h1 className="text-2xl font-bold">Akshita's Dashboard</h1>
+        <h1 className="text-2xl font-bold">{`${localStorage.getItem('user')}'s Dashboard`}</h1>
         <div className='flex items-center gap-4'>
           <button className='px-4 py-1 text-center shadow-md font-semibold bg-white rounded-md cursor-pointer' onClick={()=>{
             localStorage.clear();
