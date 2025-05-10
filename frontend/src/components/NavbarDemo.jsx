@@ -59,13 +59,13 @@ export function NavbarDemo({ isLoggedIn = false, setIsLoggedIn }) {
 
           <MobileNavMenu isOpen={isMobileMenuOpen} onClose={() => setIsMobileMenuOpen(false)}>
             {navItems.map((item, idx) => (
-              <a
+              <p
                 key={`mobile-link-${idx}`}
-                href={item.link}
+                // href={item.link}
                 onClick={() => navigate(`${item.link}`)}
                 className="relative text-neutral-600 dark:text-neutral-300 cursor-pointer">
                 <span className="block">{item.name}</span>
-              </a>
+              </p>
             ))}
             <div className="flex w-full flex-col gap-4">
               <NavbarButton
