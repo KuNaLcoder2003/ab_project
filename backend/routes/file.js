@@ -1,25 +1,16 @@
 const express = require('express');
 const router = express.Router();
 const { Users, Files } = require('../db');
-const authMiddleWare = require('../middlewares/authMiddleware')
-const cloudinary = require('cloudinary').v2;
 const multer = require('multer')
 const upload = multer({ storage: multer.memoryStorage() })
 const xlxs = require('xlsx');
 const { Groq } = require('groq-sdk');
-const { array } = require('zod');
+const dotenv = require('dotenv')
 
-
-cloudinary.config({
-    cloud_name: 'doyifognr',
-    api_key: '558719477873916',
-    api_secret: 'v8ZvCjyKR-CgQwVd9D8qEpBygxw' // Click 'View API Keys' above to copy your API secret
-});
-
-
+dotenv.config()
 // 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
 
-const groq = new Groq({ apiKey: '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' })
+const groq = new Groq({ apiKey: process.env.API_KEY })
 
 function extractArraysFromResponse(response) {
     try {

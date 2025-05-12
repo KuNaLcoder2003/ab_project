@@ -5,6 +5,7 @@ const generateToken = require('../functions/generateTokens')
 
 
 router.post('/signup', async (req, res) => {
+    console.log('request recvd')
     const { first_name, last_name, username, password } = req.body.user_details;
     try {
         const alreadyExists = await Users.findOne({ username: username });
