@@ -43,7 +43,7 @@ export const UploadPage = () => {
     formdata.append('excel_file', files)
     setUploading(true)
 
-    fetch('http://localhost:3000/api/v1/file/upload', {
+    fetch('https://ab-project.onrender.com/api/v1/file/upload', {
       method: 'POST',
       body: formdata
     }).then(async (response) => {

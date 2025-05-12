@@ -22,7 +22,7 @@ export function SignupForm({setIsLoggedIn}) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    fetch('http://localhost:3000/api/v1/user/signup' , {
+    fetch('https://ab-project.onrender.com/api/v1/user/signup' , {
       method : 'POST',
       headers : {
         'Content-Type' : 'application/json'
